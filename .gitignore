@@ -160,4 +160,4 @@ cython_debug/
 .idea/
 
 *.sqlite3
-fbcost/settings.py
+settings.py
