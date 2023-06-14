@@ -24,7 +24,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 SECRET_KEY = 'django-insecure-z+(1@_2ht&4y#u0819wlg_w-ai^hn_am-l(0!qc52w%!7p@%wv'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['neyokee.pythonanywhere.com', '127.0.0.1']
 AUTH_USER_MODEL = 'authentication.CustomUser'
