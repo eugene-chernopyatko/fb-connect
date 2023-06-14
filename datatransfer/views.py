@@ -7,10 +7,15 @@ from facebook_business.adobjects.adaccount import AdAccount
 from facebook_business.adobjects.user import User
 import csv
 import paramiko
-from django.http import JsonResponse
-from django.core.serializers import serialize
 from .forms import CreateProjectForm, ProjectOpenKeyForm
 from authentication.models import CustomUser
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+USER= os.getenv('pa_user')
+PASSWORD = os.getenv('pa_password')
 
 
 def projects_main(request):
@@ -30,7 +35,7 @@ def get_project(request, pk):
             project.save()
             ssh = paramiko.SSHClient()
             ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-            ssh.connect(hostname='ssh.pythonanywhere.com', username='neyokee', password='kscfrjdf2686991')
+            ssh.connect(hostname='ssh.pythonanywhere.com', username=USER, password=PASSWORD)
             sftp = ssh.open_sftp()
             remote_file_path = '/home/neyokee/.ssh/authorized_keys'
             with sftp.open(remote_file_path) as file:
@@ -83,7 +88,7 @@ def create_project(request):
             proj.save()
             ssh = paramiko.SSHClient()
             ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-            ssh.connect(hostname='ssh.pythonanywhere.com', username='neyokee', password='kscfrjdf2686991')
+            ssh.connect(hostname='ssh.pythonanywhere.com', username=USER, password=PASSWORD)
             sftp = ssh.open_sftp()
             sftp.chdir('/home/neyokee/fb_cost_data/')
             with sftp.open(f'{project_name}_cost_data.csv', 'w') as remote_file:
@@ -176,7 +181,7 @@ def go(request):
 
         ssh = paramiko.SSHClient()
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        ssh.connect(hostname='ssh.pythonanywhere.com', username='neyokee', password='kscfrjdf2686991')
+        ssh.connect(hostname='ssh.pythonanywhere.com', username=USER, password=PASSWORD)
         sftp = ssh.open_sftp()
         sftp.put(f'trash/{project.filename_to_transfer}', '/home/neyokee/fb_cost_data/Brander_cost_data.csv')
         sftp.close()
