@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-z+(1@_2ht&4y#u0819wlg_w-ai^hn_am-l(0!qc52w%!7p@%wv'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['neyokee.pythonanywhere.com']
 AUTH_USER_MODEL = 'authentication.CustomUser'
