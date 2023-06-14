@@ -1,0 +1,5 @@
+django
+pip
+requests
+paramiko
+facebook-business
