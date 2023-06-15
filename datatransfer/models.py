@@ -8,7 +8,7 @@ class Project(models.Model):
     account_id = models.CharField(max_length=50, blank=True)
     filename_to_transfer = models.CharField(max_length=50, blank=True)
     date_create = models.DateField(auto_now_add=True)
-    ssh_key = models.CharField(max_length=30, blank=True)
+    ssh_key = models.TextField(blank=True)
 
     def __str__(self):
         return self.project_name
