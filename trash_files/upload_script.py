@@ -50,7 +50,7 @@ for data in user_id_list:
             campaign_data.append(
                 {
                     'campaign_id_column': i['adset_id'],
-                    'campaign_name_column': i['adset_name'],
+                    'campaign_name': i['adset_name'],
                     'campaign_source_column': 'facebook',
                     'campaign_medium_column': 'cpa',
                     'date_column': i['date_stop'],
@@ -64,7 +64,7 @@ for data in user_id_list:
         except IndexError:
             print('List is empty')
         finally:
-            keys = ['campaign_id_column', 'campaign_name_column', 'campaign_source_column',
+            keys = ['campaign_id_column', 'campaign_name', 'campaign_source_column',
                     'campaign_medium_column', 'date_column', 'daily_impressions_column',
                     'daily_clicks_column', 'daily_cost_column']
             with open(f'/home/neyokee/fb-connect/trash_files/{proj[1]}', mode='w+', newline='') as file:
