@@ -13,7 +13,7 @@ load_dotenv()
 USER= os.getenv('pa_user')
 PASSWORD = os.getenv('pa_password')
 
-conn = sqlite3.connect('fbcost/db.sqlite3')
+conn = sqlite3.connect('/home/neyokee/fb-connect/db.sqlite3')
 cursor = conn.cursor()
 
 user_id_cursor = cursor.execute('SELECT id,fb_app_id,fb_account_secret,fb_access_token FROM authentication_customuser')
@@ -50,7 +50,7 @@ for data in user_id_list:
             campaign_data.append(
                 {
                     'campaign_id_column': i['adset_id'],
-                    'campaign_name': i['adset_name'],
+                    'campaign_name_column': i['adset_name'],
                     'campaign_source_column': 'facebook',
                     'campaign_medium_column': 'cpa',
                     'date_column': i['date_stop'],
@@ -67,7 +67,7 @@ for data in user_id_list:
             keys = ['campaign_id_column', 'campaign_name_column', 'campaign_source_column',
                     'campaign_medium_column', 'date_column', 'daily_impressions_column',
                     'daily_clicks_column', 'daily_cost_column']
-            with open(f'fbcost/trash_files/{proj[1]}', mode='w+', newline='') as file:
+            with open(f'/home/neyokee/fb-connect/trash_files/{proj[1]}', mode='w+', newline='') as file:
                 dict_writer = csv.DictWriter(file, keys)
                 dict_writer.writeheader()
                 dict_writer.writerows(campaign_data)
@@ -76,7 +76,7 @@ for data in user_id_list:
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         ssh.connect(hostname='ssh.pythonanywhere.com', username=USER, password=PASSWORD)
         sftp = ssh.open_sftp()
-        sftp.put(f'fbcost/trash_files/{proj[1]}', f'/home/neyokee/fb_cost_data/{proj[1]}')
+        sftp.put(f'/home/neyokee/fb-connect/trash_files/{proj[1]}', f'/home/neyokee/fb_cost_data/{proj[1]}')
         sftp.close()
         ssh.close()
 
