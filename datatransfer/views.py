@@ -5,6 +5,7 @@ from facebook_business.adobjects.adsinsights import AdsInsights
 from facebook_business.api import FacebookAdsApi
 from facebook_business.adobjects.adaccount import AdAccount
 from facebook_business.adobjects.user import User
+from facebook_business.exceptions import FacebookRequestError
 import csv
 import paramiko
 from .forms import CreateProjectForm, ProjectOpenKeyForm
@@ -109,8 +110,8 @@ def create_project(request):
             ad_accounts = me.get_ad_accounts(fields=['name', 'account_id'])
             return render(request, 'create_project.html', {'form': form, 'accounts': ad_accounts})
     else:
+        form = CreateProjectForm()
         try:
-
             user_a_id = request.user.fb_app_id
             user_a_sec = request.user.fb_account_secret
             user_a_token = request.user.fb_access_token
@@ -119,10 +120,12 @@ def create_project(request):
 
             me = User(fbid='me')
             ad_accounts = me.get_ad_accounts(fields=['name', 'account_id'])
-        except:
+        except FacebookRequestError:
             ad_accounts = []
+            form.errors('You have to change access token to see ad accounts')
+            print('#################################')
         finally:
-            form = CreateProjectForm()
+            # form = CreateProjectForm()
             return render(request, 'create_project.html', {'form': form, 'accounts': ad_accounts})
 
 
@@ -132,6 +135,16 @@ def delete_project(request, pk):
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     ssh.connect(hostname='ssh.pythonanywhere.com', username=USER, password=PASSWORD)
     sftp = ssh.open_sftp()
+    remote_file_path = '/home/neyokee/.ssh/authorized_keys'
+    if proj.ssh_key:
+        with sftp.open(remote_file_path) as file:
+            file_content = file.read()
+            ssh_list = file_content.decode().split('\n')
+
+        new_ssh = [key for key in ssh_list if key != proj.ssh_key]
+        with sftp.open(remote_file_path, 'w') as file:
+            file.write('\n'.join(new_ssh).encode())
+
     sftp.remove(f'/home/neyokee/fb_cost_data/{proj.filename_to_transfer}')
     sftp.close()
     proj.delete()
