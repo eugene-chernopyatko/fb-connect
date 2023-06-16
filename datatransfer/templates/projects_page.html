@@ -1,85 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 </head>
+
 <body>
-<div class="container-fluid">
-<div class="row">
-    <div class="col-3">
-<div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 341px; height: 805px;">
-    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-      <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="{% url 'projects' %}"></use></svg>
-      <span class="fs-4">Fb Connect</span>
-    </a>
-    <hr>
-    <ul class="nav nav-pills flex-column mb-auto">
-      <li>
-        <a href="" class="nav-link link-body-emphasis active">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-          Dashboard
-        </a>
-      </li>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-3">
+        <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 341px; height: 100vh;">
+          <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+            <svg class="bi pe-none me-2" width="40" height="32">
+              <use xlink:href="{% url 'projects' %}"></use>
+            </svg>
+            <span class="fs-4">Fb Connect</span>
+          </a>
+          <hr>
+          <ul class="nav nav-pills flex-column mb-auto">
+            <li>
+              <a href="" class="nav-link link-body-emphasis active">
+                <svg class="bi pe-none me-2" width="16" height="16">
+                  <use xlink:href="#speedometer2"></use>
+                </svg>
+                Dashboard
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'create-project'%}" class="nav-link link-body-emphasis">
+                <svg class="bi pe-none me-2" width="16" height="16">
+                  <use xlink:href="#speedometer2"></use>
+                </svg>
+                New Project
+              </a>
+            </li>
+          </ul>
+          <hr>
+          <div class="dropdown">
+            <a href="" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="https://pbs.twimg.com/profile_images/1646955748444852231/XGehZ_9v_400x400.jpg" alt="" width="32"
+                height="32" class="rounded-circle me-2">
+              <strong>{{ user.email }}</strong>
+            </a>
+            <ul class="dropdown-menu text-small shadow">
+              <li><a class="dropdown-item" href="{% url 'perm' %}">Permission settings</a></li>
               <li>
-        <a href="{% url 'create-project'%}" class="nav-link link-body-emphasis">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-          New Project
-        </a>
-      </li>
-    </ul>
-    <hr>
-    <div class="dropdown">
-      <a href="" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="https://pbs.twimg.com/profile_images/1646955748444852231/XGehZ_9v_400x400.jpg" alt="" width="32" height="32" class="rounded-circle me-2">
-        <strong>{{ user.email }}</strong>
-      </a>
-      <ul class="dropdown-menu text-small shadow">
-        <li><a class="dropdown-item" href="{% url 'perm' %}">Permission settings</a></li>
-        <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="{% url 'logout'%}">Log out</a></li>
-      </ul>
-    </div>
-  </div>
-    </div>
-    <div class="col-9 p-5">
-        <div class="row">
-            {% for i in projects %}
-  <div class="col-sm-4 mb-3 mb-sm-0 p-2 g-2">
-
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">{{ i.project_name }}</h5>
-        <a href="{% url 'project-detail' i.pk %}" class="btn btn-primary">Instruction</a>
-
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="{% url 'logout'%}">Log out</a></li>
+            </ul>
+          </div>
+        </div>
       </div>
-        <div class="card-footer">{{ i.date_create }}</div>
-    </div>
+      <div class="col-8 p-5">
+        <div class="row">
+          {% for i in projects %}
+          <div class="col-sm-4 mb-3 mb-sm-0 p-2 g-2">
 
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">{{ i.project_name }}</h5>
+                <p class="card-text">Facebook account id: <code>{{i.account_id}}</code></p>
+                <a href="{% url 'project-detail' i.pk %}" class="btn btn-primary">Instruction</a>
+                <a href="{{i.pk}}/delete" class="btn btn-danger" style="width: 103.38px;">Delete</a>
+              </div>
+              <div class="card-footer">{{ i.date_create }}</div>
+            </div>
+
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
   </div>
-{% endfor %}
-</div>
-    </div>
-<!--    <script>-->
-<!--function changeContent(projectid) {-->
-<!--  fetch(`/projects/${projectid}`)-->
-<!--    .then(response => response.json())-->
-<!--    .then(data => {-->
-<!--      var element = document.getElementById("test");-->
-<!--      if (data.projects.length > 0) {-->
-<!--        element.innerHTML = JSON.parse(data.projects)[0].fields.project_name;-->
-<!--      } else {-->
-<!--        element.innerHTML = "Проект не найден";-->
-<!--      }-->
-<!--    })-->
-<!--    .catch(error => {-->
-<!--      console.log(error);-->
-<!--    });-->
-<!--}-->
-<!--    </script>-->
-    </div>
-    </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"></script>
 </body>
+
 </html>

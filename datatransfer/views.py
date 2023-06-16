@@ -126,6 +126,18 @@ def create_project(request):
             return render(request, 'create_project.html', {'form': form, 'accounts': ad_accounts})
 
 
+def delete_project(request, pk):
+    proj = Project.objects.get(pk=pk)
+    ssh = paramiko.SSHClient()
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    ssh.connect(hostname='ssh.pythonanywhere.com', username=USER, password=PASSWORD)
+    sftp = ssh.open_sftp()
+    sftp.remove(f'/home/neyokee/fb_cost_data/{proj.filename_to_transfer}')
+    sftp.close()
+    proj.delete()
+    return redirect('projects')
+
+
 def go(request):
     if request.user.is_authenticated:
         user_a_id = request.user.fb_app_id
