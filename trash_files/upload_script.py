@@ -33,7 +33,7 @@ for data in user_id_list:
         account = AdAccount(proj[0])
         insights = account.get_insights(fields=[
             # AdsInsights.Field.campaign_id,
-            # AdsInsights.Field.campaign_name,
+            AdsInsights.Field.campaign_name,
             AdsInsights.Field.adset_id,
             AdsInsights.Field.adset_name,
             AdsInsights.Field.spend,
@@ -52,7 +52,7 @@ for data in user_id_list:
                     'campaign_id_column': i['adset_id'],
                     'campaign_name': i['adset_name'],
                     'campaign_source_column': 'facebook',
-                    'campaign_medium_column': 'cpa',
+                    'campaign_medium_column': i['campaign_name'],
                     'date_column': i['date_stop'],
                     'daily_impressions_column': i['impressions'],
                     'daily_clicks_column': i['clicks'],
