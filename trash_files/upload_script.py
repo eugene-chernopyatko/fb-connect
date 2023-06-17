@@ -58,7 +58,7 @@ for data in user_id_list:
                     'date_column': i['date_stop'],
                     'daily_impressions_column': i['impressions'],
                     'daily_clicks_column': i['clicks'],
-                    'daily_cost_column': float(i['spend'])*proj.exchange_rate
+                    'daily_cost_column': float(i['spend'])*proj[2]
                 }
             )
         try:
