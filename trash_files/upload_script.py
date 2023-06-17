@@ -26,7 +26,8 @@ for data in user_id_list:
 
     FacebookAdsApi.init(user_a_id, user_a_sec, user_a_token)
 
-    project_cursor = cursor.execute(f'SELECT account_id,filename_to_transfer FROM datatransfer_project WHERE user_id = {data[0]}')
+    project_cursor = cursor.execute(f'SELECT account_id,filename_to_transfer,exchange_rate'
+                                    f' FROM datatransfer_project WHERE user_id = {data[0]}')
     project_data_list = project_cursor.fetchall()
     for proj in project_data_list:
         print(proj)
