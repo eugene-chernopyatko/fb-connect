@@ -35,10 +35,22 @@
               please!
             </label>
             <div class="form-group" style="margin-top: 10px">
-              <select class="form-control" id="country" name="dropdown">
+              <select class="form-control" id="ad-accounts" name="dropdown">
                 <option value="">Select Ad Account</option>
                 {% for i in accounts %}
                 <option value="{{ i.account_id }}">{{ i.name }}</option>
+                {% endfor %}
+              </select>
+              <select class="form-control" id="currency" name="dropdown-ad-currency" style="margin-top:20px;">
+                <option value="">Select Ad Account Currency </option>
+                {% for cur in currency %}
+                <option value="{{ cur }}">{{ cur }}</option>
+                {% endfor %}
+              </select>
+              <select class="form-control" id="ga-currency" name="dropdown-ga-currency" style="margin-top:20px;">
+                <option value="">Select GA4 Currency </option>
+                {% for cur in currency %}
+                <option value="{{ cur }}">{{ cur }}</option>
                 {% endfor %}
               </select>
               <label style="margin-top: 10px"
@@ -47,8 +59,7 @@
                 <a
                   href="https://developers.facebook.com/"
                   onclick="event.preventDefault(); window.open(this.href, '_blank');"
-                  >Developer</a
-                >
+                  >Developer</a>
                 and generate 3 access tokens: app_id, app_secret and
                 access_token. Then go to
                 <a href="{% url 'perm'%}"> Permission settings</a> and fill

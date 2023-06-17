@@ -9,6 +9,9 @@ class Project(models.Model):
     filename_to_transfer = models.CharField(max_length=50, blank=True)
     date_create = models.DateField(auto_now_add=True)
     ssh_key = models.TextField(blank=True)
+    ad_account_currency = models.CharField(blank=True, max_length=10)
+    ga4_currency = models.CharField(blank=True, max_length=10)
+    exchange_rate = models.FloatField(blank=True, default=1)
 
     def __str__(self):
         return self.project_name

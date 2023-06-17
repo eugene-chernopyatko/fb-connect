@@ -1,3 +1,5 @@
+import json
+
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .models import Project
@@ -12,11 +14,14 @@ from .forms import CreateProjectForm, ProjectOpenKeyForm
 from authentication.models import CustomUser
 import os
 from dotenv import load_dotenv
+import requests
 
 load_dotenv()
 
 USER= os.getenv('pa_user')
 PASSWORD = os.getenv('pa_password')
+
+CURRENCY = ['uah', 'usd', 'eur', 'gbp']
 
 
 def projects_main(request):
@@ -78,15 +83,21 @@ def create_project(request):
     if not request.user.is_authenticated:
         return redirect('projects')
     if request.method == 'POST':
-        account_id = request.POST["dropdown"]
+        account_id = request.POST['dropdown']
         form = CreateProjectForm(request.POST)
+        ad_currency = request.POST['dropdown-ad-currency']
+        ga_currency = request.POST['dropdown-ga-currency']
         if form.is_valid():
-            project_name = request.POST["project_name"]
+            project_name = request.POST['project_name']
             proj = form.save(commit=False)
             proj.account_id = f'act_{account_id}'
             proj.user = CustomUser.objects.get(pk=request.user.pk)
             proj.filename_to_transfer = f'{project_name}_cost_data.csv'
-            proj.save()
+            proj.ad_account_currency = ad_currency
+            proj.ga4_currency = ga_currency
+            currency_response = requests.get(f'https://cdn.jsdelivr.net/gh/fawazahmed0/'
+                                             f'currency-api@1/latest/currencies/{ad_currency}/{ga_currency}.json')
+            proj.exchange_rate = currency_response.json()[f'{ga_currency}']
             ssh = paramiko.SSHClient()
             ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
             ssh.connect(hostname='ssh.pythonanywhere.com', username=USER, password=PASSWORD)
@@ -97,7 +108,7 @@ def create_project(request):
 
             sftp.close()
             ssh.close()
-
+            proj.save()
             return redirect('projects')
         else:
             user_a_id = request.user.fb_app_id
@@ -108,7 +119,7 @@ def create_project(request):
 
             me = User(fbid='me')
             ad_accounts = me.get_ad_accounts(fields=['name', 'account_id'])
-            return render(request, 'create_project.html', {'form': form, 'accounts': ad_accounts})
+            return render(request, 'create_project.html', {'form': form, 'accounts': ad_accounts, 'currency': CURRENCY})
     else:
         form = CreateProjectForm()
         try:
@@ -126,7 +137,7 @@ def create_project(request):
             print('#################################')
         finally:
             # form = CreateProjectForm()
-            return render(request, 'create_project.html', {'form': form, 'accounts': ad_accounts})
+            return render(request, 'create_project.html', {'form': form, 'accounts': ad_accounts, 'currency': CURRENCY})
 
 
 def delete_project(request, pk):
