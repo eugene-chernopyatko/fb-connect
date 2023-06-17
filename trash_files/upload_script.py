@@ -29,6 +29,7 @@ for data in user_id_list:
     project_cursor = cursor.execute(f'SELECT account_id,filename_to_transfer,exchange_rate'
                                     f' FROM datatransfer_project WHERE user_id = {data[0]}')
     project_data_list = project_cursor.fetchall()
+    print(project_data_list)
     for proj in project_data_list:
         print(proj)
         account = AdAccount(proj[0])
