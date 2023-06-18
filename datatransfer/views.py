@@ -102,6 +102,35 @@ def create_project(request):
             currency_response = requests.get(f'https://cdn.jsdelivr.net/gh/fawazahmed0/'
                                              f'currency-api@1/latest/currencies/{ad_currency}/{ga_currency}.json')
             proj.exchange_rate = currency_response.json()[f'{ga_currency}']
+            #
+            # user_a_id = request.user.fb_app_id
+            # user_a_sec = request.user.fb_account_secret
+            # user_a_token = request.user.fb_access_token
+            #
+            # FacebookAdsApi.init(user_a_id, user_a_sec, user_a_token)
+            #
+            # account = AdAccount(f'act_{account_id}')
+            # insights = account.get_insights(fields=[
+            #     # AdsInsights.Field.campaign_id,
+            #     AdsInsights.Field.campaign_name,
+            #     AdsInsights.Field.adset_id,
+            #     AdsInsights.Field.adset_name,
+            #     AdsInsights.Field.spend,
+            #     AdsInsights.Field.impressions,
+            #     AdsInsights.Field.clicks,
+            # ], params={
+            #     'level': 'adset',
+            #     'time_increment': 1,
+            #     'time_range': {
+            #         'since':  f'{start_date}',
+            #         'until': two_days_ago.strftime('%Y-%m-%d')
+            #     },
+            # })
+            # campaign_data = []
+            # for i in insights:
+            #     campaign_data.append([i['adset_id'], i['adset_name'], 'facebook', i['campaign_name'], i['date_stop'],
+            #                           i['impressions'], i['clicks'],
+            #                           format(float(i['spend']) * currency_response.json()[f'{ga_currency}'], '.2f')])
 
             ssh = paramiko.SSHClient()
             ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -114,9 +143,9 @@ def create_project(request):
             with sftp.open(f'{project_name}_cost_data.csv', 'w') as remote_file:
                 remote_file.write(','.join(keys).encode())
 
-            with sftp.open(f'{project_name}_cost_data.csv', 'a') as remote_file:
-                for i in campaign_data:
-                    remote_file.write(f'\n{",".join(i)}')
+            # with sftp.open(f'{project_name}_cost_data.csv', 'a') as remote_file:
+            #     for i in campaign_data:
+            #         remote_file.write(f'\n{",".join(i)}')
             sftp.close()
             ssh.close()
             proj.save()
