@@ -21,10 +21,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-z+(1@_2ht&4y#u0819wlg_w-ai^hn_am-l(0!qc52w%!7p@%wv'
+SECRET_KEY = os.getenv('django_security_key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['neyokee.pythonanywhere.com', '127.0.0.1']
 AUTH_USER_MODEL = 'authentication.CustomUser'
