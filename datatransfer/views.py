@@ -103,8 +103,11 @@ def create_project(request):
             ssh.connect(hostname='ssh.pythonanywhere.com', username=USER, password=PASSWORD)
             sftp = ssh.open_sftp()
             sftp.chdir('/home/neyokee/fb_cost_data/')
+            keys = ['campaign_id_column', 'campaign_name', 'campaign_source_column',
+                    'campaign_medium_column', 'date_column', 'daily_impressions_column',
+                    'daily_clicks_column', 'daily_cost_column']
             with sftp.open(f'{project_name}_cost_data.csv', 'w') as remote_file:
-                pass
+                remote_file.write(','.join(keys).encode())
 
             sftp.close()
             ssh.close()
