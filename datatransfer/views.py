@@ -1,5 +1,4 @@
-import json
-
+import random
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .models import Project
@@ -89,6 +88,9 @@ def create_project(request):
         ga_currency = request.POST['dropdown-ga-currency']
         if form.is_valid():
             project_name = request.POST['project_name']
+            exists = Project.objects.filter(project_name=project_name).exists()
+            if exists:
+                project_name = project_name + str(random.randint(1, 1000))
             proj = form.save(commit=False)
             proj.account_id = f'act_{account_id}'
             proj.user = CustomUser.objects.get(pk=request.user.pk)

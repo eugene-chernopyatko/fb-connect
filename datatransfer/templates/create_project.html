@@ -17,8 +17,28 @@
       type="image/x-icon"
       href="https://img.icons8.com/?size=512&id=sW8tkbsDrzOi&format=png"
     />
-  </head>
+       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
+    <script>
+        // Функция блокировки даты "вчера"
+        function blockYesterdayDate() {
+            var today = new Date();
+            var yesterday = new Date(today);
+            yesterday.setDate(yesterday.getDate() - 1);
+
+            var dateString = yesterday.toISOString().split('T')[0];
+
+            // Установка атрибута max с значением "вчера" для поля начальной даты
+            document.getElementById('date-start').setAttribute('max', dateString);
+
+            // Установка атрибута max с значением "вчера" для поля конечной даты
+            document.getElementById('date-finish').setAttribute('max', dateString);
+        }
+
+        // Вызов функции при загрузке страницы
+        window.onload = blockYesterdayDate;
+    </script>
+  </head>
   <body>
     <div class="container-fluid">
       <div class="row justify-content-center" style="padding-top: 10%">
@@ -41,19 +61,33 @@
                 <option value="{{ i.account_id }}">{{ i.name }}</option>
                 {% endfor %}
               </select>
+              <div class="row">
+                <div class="col">
               <select class="form-control" id="currency" name="dropdown-ad-currency" style="margin-top:20px;">
-                <option value="">Select Ad Account Currency </option>
+                <option value="">Select Account Currency </option>
                 {% for cur in currency %}
                 <option value="{{ cur }}">{{ cur }}</option>
                 {% endfor %}
               </select>
+                  </div>
+                <div class="col">
               <select class="form-control" id="ga-currency" name="dropdown-ga-currency" style="margin-top:20px;">
                 <option value="">Select GA4 Currency </option>
                 {% for cur in currency %}
                 <option value="{{ cur }}">{{ cur }}</option>
                 {% endfor %}
               </select>
-              <label style="margin-top: 10px"
+                  </div>
+                </div>
+              <div class="row" style="margin-top: 20px;">
+                <div class="col">
+                <div class="form-group">
+                  <label for="date-start">Choose start date</label>
+                  <input type="date" class="form-control" id="date-start" onfocus="blockYesterdayDate()">
+                </div>
+                  </div>
+                </div>
+              <label style="margin-top: 20px"
                 >If you want to see FB ad accounts, you have to create Facebook
                 App in
                 <a
@@ -94,5 +128,6 @@
       integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
       crossorigin="anonymous"
     ></script>
+  <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
   </body>
 </html>
