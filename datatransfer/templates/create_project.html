@@ -59,7 +59,7 @@
               please!
             </label>
             <div class="form-group" style="margin-top: 10px">
-              <select class="form-control" id="ad-accounts" name="dropdown">
+              <select class="form-control" id="ad-accounts" name="dropdown" required>
                 <option value="">Select Ad Account</option>
                 {% for i in accounts %}
                 <option value="{{ i.account_id }}">{{ i.name }}</option>
@@ -72,6 +72,7 @@
                     id="currency"
                     name="dropdown-ad-currency"
                     style="margin-top: 20px"
+                    required
                   >
                     <option value="">Select Account Currency</option>
                     {% for cur in currency %}
@@ -85,8 +86,9 @@
                     id="ga-currency"
                     name="dropdown-ga-currency"
                     style="margin-top: 20px"
+                    required
                   >
-                    <option value="">Select GA4 Currency</option>
+                    <option value="" >Select GA4 Currency</option>
                     {% for cur in currency %}
                     <option value="{{ cur }}">{{ cur }}</option>
                     {% endfor %}
@@ -103,6 +105,7 @@
                       id="date-start"
                       onfocus="blockYesterdayDate()"
                       name="date"
+                      required
                     />
                   </div>
                 </div>
