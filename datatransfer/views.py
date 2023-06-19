@@ -22,8 +22,10 @@ PASSWORD = os.getenv('pa_password')
 CURRENCY = ['uah', 'usd', 'eur', 'gbp']
 today = datetime.now()
 two_day_ago = today - timedelta(days=2)
+yesterday = today - timedelta(days=1)
 current_time = datetime.now()
 hour = current_time.hour
+UPLOAD_TIME = 12
 
 
 def projects_main(request):
@@ -126,7 +128,7 @@ def create_project(request):
                 'time_increment': 1,
                 'time_range': {
                     'since':  f'{start_date}',
-                    'until': two_day_ago.strftime('%Y-%m-%d')
+                    'until': two_day_ago.strftime('%Y-%m-%d') if hour < UPLOAD_TIME else yesterday.strftime('%Y-%m-%d')
                 },
             })
             campaign_data = []
