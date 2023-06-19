@@ -31,7 +31,7 @@
         var today = new Date();
         var yesterday = new Date(today);
         var monthAgo = new Date(today);
-        yesterday.setDate(yesterday.getDate() - 2);
+        yesterday.setDate(yesterday.getDate() - 1);
         monthAgo.setMonth(yesterday.getMonth() - 1);
 
         var dateString = yesterday.toISOString().split("T")[0];
