@@ -22,6 +22,8 @@ PASSWORD = os.getenv('pa_password')
 CURRENCY = ['uah', 'usd', 'eur', 'gbp']
 today = datetime.now()
 two_day_ago = today - timedelta(days=2)
+current_time = datetime.now()
+hour = current_time.hour
 
 
 def projects_main(request):
@@ -179,6 +181,7 @@ def create_project(request):
             print('#################################')
         finally:
             # form = CreateProjectForm()
+            print(hour)
             return render(request, 'create_project.html', {'form': form, 'accounts': ad_accounts, 'currency': CURRENCY})
 
 
