@@ -255,8 +255,8 @@
                   </div>
                 </div>
                 <div class="card-footer" style="color: #9fa6b2">
-                  Last data upload: {{ i.date_create }} {% if i.upload_status ==
-                  'Success'%}
+                  Last data upload: {{ i.date_create }}
+                  {% if i.upload_status == 'Success'%}
                   <p class="card-text">
                     Upload status:
                     <span style="color: #14a44d">{{i.upload_status}}</span>
