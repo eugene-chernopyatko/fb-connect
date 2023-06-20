@@ -15,159 +15,188 @@
       href="https://img.icons8.com/?size=512&id=sW8tkbsDrzOi&format=png"
     />
     <!-- Font Awesome -->
-<link
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-  rel="stylesheet"
-/>
-<!-- Google Fonts -->
-<link
-  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-  rel="stylesheet"
-/>
-<!-- MDB -->
-<link
-  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css"
-  rel="stylesheet"
-/>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css"
+      rel="stylesheet"
+    />
     <style>
-    /* Optional custom styles */
-    .sticky-block {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 341px;
-      height: 100vh;
-      padding: 20px;
-      background-color: #f8f9fa;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      z-index: 9999;
-    }
+      /* Optional custom styles */
+      .sticky-block {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 341px;
+        height: 100vh;
+        padding: 20px;
+        background-color: #f8f9fa;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        z-index: 9999;
+      }
 
-    .sticky-block a {
-      color: #000;
-
-    }
-  </style>
+      .sticky-block a {
+        color: #000;
+      }
+    </style>
   </head>
   <body>
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-3">
-        <div class="sticky-block">
-          <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-            <svg class="bi pe-none me-2" width="40" height="32">
-              <use xlink:href="{% url 'projects' %}"></use>
-            </svg>
-            <span class="fs-4" style="color: #3B71CA;">Fb Connect</span>
-          </a>
-          <hr />
-          <ul class="nav nav-pills flex-column mb-auto">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-3">
+          <div class="sticky-block">
+            <a
+              href="/"
+              class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
+            >
+              <svg class="bi pe-none me-2" width="40" height="32">
+                <use xlink:href="{% url 'projects' %}"></use>
+              </svg>
+              <span class="fs-4" style="color: #3b71ca">Fb Connect</span>
+            </a>
+            <hr />
+            <ul class="nav nav-pills flex-column mb-auto">
               <li class="nav-item">
-                <a href="" class="nav-link link-body-emphasis active" data-bs-toggle="collapse" data-bs-target="#collapseDash" aria-expanded="false" aria-controls="collapseDash">
+                <a
+                  href=""
+                  class="nav-link link-body-emphasis active"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseDash"
+                  aria-expanded="false"
+                  aria-controls="collapseDash"
+                >
                   <svg class="bi pe-none me-2" width="16" height="16">
                     <use xlink:href="#speedometer2"></use>
                   </svg>
-                  Dashboard  ▾
+                  Dashboard ▾
                 </a>
                 <div class="collapse" id="collapseDash">
                   <ul class="nav flex-column">
                     <li class="nav-item">
-                      <a class="nav-link" href="{% url 'create-project'%}" style="margin-left: 35px;">Create new project</a>
+                      <a
+                        class="nav-link"
+                        href="{% url 'create-project'%}"
+                        style="margin-left: 35px"
+                        >Create new project</a
+                      >
                     </li>
                   </ul>
                 </div>
               </li>
-            <li class="nav-item">
-                <a href="" class="nav-link link-body-emphasis active" data-bs-toggle="collapse" data-bs-target="#collapseAcc" aria-expanded="false" aria-controls="collapseAcc">
+              <li class="nav-item">
+                <a
+                  href=""
+                  class="nav-link link-body-emphasis active"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseAcc"
+                  aria-expanded="false"
+                  aria-controls="collapseAcc"
+                >
                   <svg class="bi pe-none me-2" width="16" height="16">
                     <use xlink:href="#speedometer2"></use>
                   </svg>
-                  Account  ▾
+                  Account ▾
                 </a>
                 <div class="collapse" id="collapseAcc">
                   <ul class="nav flex-column">
                     <li class="nav-item">
-                      <a class="nav-link" href="{% url 'perm' %}" style="margin-left: 35px;">Permission settings</a>
-                      <a class="nav-link" href="{% url 'logout'%}" style="margin-left: 35px;">Logout</a>
+                      <a
+                        class="nav-link"
+                        href="{% url 'perm' %}"
+                        style="margin-left: 35px"
+                        >Permission settings</a
+                      >
+                      <a
+                        class="nav-link"
+                        href="{% url 'logout'%}"
+                        style="margin-left: 35px"
+                        >Logout</a
+                      >
                     </li>
                   </ul>
                 </div>
               </li>
-          </ul>
-<!--          <ul class="nav nav-pills flex-column mb-auto">-->
-<!--            <li>-->
-<!--              <a href="" class="nav-link link-body-emphasis active">-->
-<!--                <svg class="bi pe-none me-2" width="16" height="16">-->
-<!--                  <use xlink:href="#speedometer2"></use>-->
-<!--                </svg>-->
-<!--                Dashboard-->
-<!--              </a>-->
-<!--            </li>-->
-<!--            <li>-->
-<!--              <a href="{% url 'create-project'%}" class="nav-link link-body-emphasis">-->
-<!--                <svg class="bi pe-none me-2" width="16" height="16">-->
-<!--                  <use xlink:href="#speedometer2"></use>-->
-<!--                </svg>-->
-<!--                Create new project-->
-<!--              </a>-->
-<!--            </li>-->
-<!--          </ul>-->
-<!--          <hr />-->
-<!--          <div class="dropdown">-->
-<!--            <a href="" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">-->
-<!--              <img src="https://pbs.twimg.com/profile_images/1646955748444852231/XGehZ_9v_400x400.jpg" alt="" width="32" height="32" class="rounded-circle me-2" />-->
-<!--              {{ user.email }}-->
-<!--            </a>-->
-<!--            <ul class="dropdown-menu text-small shadow">-->
-<!--              <li>-->
-<!--                <a class="dropdown-item" href="{% url 'perm' %}">Permission settings</a>-->
-<!--              </li>-->
-<!--              <li>-->
-<!--                <hr class="dropdown-divider" />-->
-<!--              </li>-->
-<!--              <li>-->
-<!--                <a class="dropdown-item" href="{% url 'logout'%}">Log out</a>-->
-<!--              </li>-->
-<!--            </ul>-->
-<!--          </div>-->
+            </ul>
+            <!--          <ul class="nav nav-pills flex-column mb-auto">-->
+            <!--            <li>-->
+            <!--              <a href="" class="nav-link link-body-emphasis active">-->
+            <!--                <svg class="bi pe-none me-2" width="16" height="16">-->
+            <!--                  <use xlink:href="#speedometer2"></use>-->
+            <!--                </svg>-->
+            <!--                Dashboard-->
+            <!--              </a>-->
+            <!--            </li>-->
+            <!--            <li>-->
+            <!--              <a href="{% url 'create-project'%}" class="nav-link link-body-emphasis">-->
+            <!--                <svg class="bi pe-none me-2" width="16" height="16">-->
+            <!--                  <use xlink:href="#speedometer2"></use>-->
+            <!--                </svg>-->
+            <!--                Create new project-->
+            <!--              </a>-->
+            <!--            </li>-->
+            <!--          </ul>-->
+            <!--          <hr />-->
+            <!--          <div class="dropdown">-->
+            <!--            <a href="" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">-->
+            <!--              <img src="https://pbs.twimg.com/profile_images/1646955748444852231/XGehZ_9v_400x400.jpg" alt="" width="32" height="32" class="rounded-circle me-2" />-->
+            <!--              {{ user.email }}-->
+            <!--            </a>-->
+            <!--            <ul class="dropdown-menu text-small shadow">-->
+            <!--              <li>-->
+            <!--                <a class="dropdown-item" href="{% url 'perm' %}">Permission settings</a>-->
+            <!--              </li>-->
+            <!--              <li>-->
+            <!--                <hr class="dropdown-divider" />-->
+            <!--              </li>-->
+            <!--              <li>-->
+            <!--                <a class="dropdown-item" href="{% url 'logout'%}">Log out</a>-->
+            <!--              </li>-->
+            <!--            </ul>-->
+            <!--          </div>-->
+          </div>
         </div>
-      </div>
         <div class="col-8 p-2">
           <div class="row">
             {% for i in projects %}
             <div class="col-sm-4 mb-3 mb-sm-0 p-2 g-2">
               <div class="card">
-                <div class="card-body ">
-                  <h5 class="card-title" style="color: #3B71CA;">{{ i.project_name }}</h5>
+                <div class="card-body">
+                  <h5 class="card-title" style="color: #3b71ca">
+                    {{ i.project_name }}
+                  </h5>
                   <p class="card-text">
                     Facebook account id: <strong>{{i.account_id}}</strong>
                   </p>
                   <p class="card-text">
-                    Facebook account currency: <strong>{{i.ad_account_currency}}</strong>
+                    Facebook account currency:
+                    <strong>{{i.ad_account_currency}}</strong>
                   </p>
                   <p class="card-text">
                     GA4 currency: <strong>{{i.ga4_currency}}</strong>
                   </p>
-
-                  {% if i.upload_status == 'Success'%}
-                  <p class="card-text" style="color: #14A44D;"> Upload status: <strong>{{i.upload_status}}</strong></p>
-                  {%else%}
-                  <p class="card-text" style="color: #DC4C64;"> Upload status: <strong>{{i.upload_status}}</strong></p>
-                  {%endif%}
                   <a
                     href="{% url 'project-detail' i.pk %}"
                     class="btn btn-primary"
-                    style="box-shadow: none !important; margin-right: 10px;"
-                    >Integration</a>
+                    style="box-shadow: none !important; margin-right: 10px"
+                    >Integration</a
+                  >
                   <!--                                <a href="{{i.pk}}/delete" class="btn btn-danger" style="width: 103.38px;">Delete</a>-->
                   <button
                     type="button"
                     class="btn btn-outline-secondary ripple-surface-dark"
                     data-bs-toggle="modal"
                     data-bs-target="#exampleModal"
-                    data-value = "{{i.pk}}"
+                    data-value="{{i.pk}}"
                     onclick="updateLink()"
                   >
                     Delete
@@ -204,16 +233,41 @@
                         >
                           Close
                         </button>
-                        <button class="btn btn-outline-danger ripple-surface-dark" id="delete-btn" onclick="deleteItem()"><a
-                          href=""
-                          id="delete-link"
-                          style = "text-decoration: none; color: inherit; cursor: inherit; width: 103.38px;"
-                          >Delete</a></button>
+                        <button
+                          class="btn btn-outline-danger ripple-surface-dark"
+                          id="delete-btn"
+                          onclick="deleteItem()"
+                        >
+                          <a
+                            href=""
+                            id="delete-link"
+                            style="
+                              text-decoration: none;
+                              color: inherit;
+                              cursor: inherit;
+                              width: 103.38px;
+                            "
+                            >Delete</a
+                          >
+                        </button>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="card-footer" style="color: #9FA6B2;">{{ i.date_create }}</div>
+                <div class="card-footer" style="color: #9fa6b2">
+                  Last data upload: {{ i.date_create }} {% if i.upload_status ==
+                  'Success'%}
+                  <p class="card-text">
+                    Upload status:
+                    <span style="color: #14a44d">{{i.upload_status}}</span>
+                  </p>
+                  {%else%}
+                  <p class="card-text">
+                    Upload status:
+                    <span style="color: #dc4c64">{{i.upload_status}}</span>
+                  </p>
+                  {%endif%}
+                </div>
               </div>
             </div>
             {% endfor %}
@@ -221,31 +275,32 @@
         </div>
       </div>
     </div>
-      <script>
-    function updateLink() {
-      var button = event.target;
-      var valueToPass = button.getAttribute("data-value");
+    <script>
+      function updateLink() {
+        var button = event.target;
+        var valueToPass = button.getAttribute("data-value");
 
-      var myLink = document.getElementById("delete-link");
-      myLink.href = encodeURIComponent(valueToPass) + "/delete";
-    }
-  </script>
-<script>
-  function deleteItem() {
-    var button = document.getElementById("delete-btn");
-    button.disabled = true;
-    button.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Deleting...';
-  }
-</script>
+        var myLink = document.getElementById("delete-link");
+        myLink.href = encodeURIComponent(valueToPass) + "/delete";
+      }
+    </script>
+    <script>
+      function deleteItem() {
+        var button = document.getElementById("delete-btn");
+        button.disabled = true;
+        button.innerHTML =
+          '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Deleting...';
+      }
+    </script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
       crossorigin="anonymous"
     ></script>
-  <!-- MDB -->
-<script
-  type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"
-></script>
+    <!-- MDB -->
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"
+    ></script>
   </body>
 </html>

@@ -32,27 +32,26 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-        <style>
-    /* Optional custom styles */
-    .sticky-block {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 341px;
-      height: 100vh;
-      padding: 20px;
-      background-color: #f8f9fa;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      z-index: 9999;
-    }
+    <style>
+      /* Optional custom styles */
+      .sticky-block {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 341px;
+        height: 100vh;
+        padding: 20px;
+        background-color: #f8f9fa;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        z-index: 9999;
+      }
 
-    .sticky-block a {
-      color: #000;
-
-    }
-  </style>
+      .sticky-block a {
+        color: #000;
+      }
+    </style>
     <script>
       function blockYesterdayDate() {
         var today = new Date();
@@ -75,187 +74,222 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-3">
-        <div class="sticky-block">
-          <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-            <svg class="bi pe-none me-2" width="40" height="32">
-              <use xlink:href="{% url 'projects' %}"></use>
-            </svg>
-            <span class="fs-4">Fb Connect</span>
-          </a>
-          <hr />
-          <ul class="nav nav-pills flex-column mb-auto">
+          <div class="sticky-block">
+            <a
+              href="/"
+              class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
+            >
+              <svg class="bi pe-none me-2" width="40" height="32">
+                <use xlink:href="{% url 'projects' %}"></use>
+              </svg>
+              <span class="fs-4">Fb Connect</span>
+            </a>
+            <hr />
+            <ul class="nav nav-pills flex-column mb-auto">
               <li class="nav-item">
-                <a href="" class="nav-link link-body-emphasis active" data-bs-toggle="collapse" data-bs-target="#collapseDash" aria-expanded="false" aria-controls="collapseDash">
+                <a
+                  href=""
+                  class="nav-link link-body-emphasis active"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseDash"
+                  aria-expanded="false"
+                  aria-controls="collapseDash"
+                >
                   <svg class="bi pe-none me-2" width="16" height="16">
                     <use xlink:href="#speedometer2"></use>
                   </svg>
-                  Dashboard  ▾
+                  Dashboard ▾
                 </a>
                 <div class="collapse" id="collapseDash">
                   <ul class="nav flex-column">
                     <li class="nav-item">
-                      <a class="nav-link" href="{% url 'create-project'%}" style="margin-left: 35px;">Create new project</a>
+                      <a
+                        class="nav-link"
+                        href="{% url 'create-project'%}"
+                        style="margin-left: 35px"
+                        >Create new project</a
+                      >
                     </li>
                   </ul>
                 </div>
               </li>
-            <li class="nav-item">
-                <a href="" class="nav-link link-body-emphasis active" data-bs-toggle="collapse" data-bs-target="#collapseAcc" aria-expanded="false" aria-controls="collapseAcc">
+              <li class="nav-item">
+                <a
+                  href=""
+                  class="nav-link link-body-emphasis active"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseAcc"
+                  aria-expanded="false"
+                  aria-controls="collapseAcc"
+                >
                   <svg class="bi pe-none me-2" width="16" height="16">
                     <use xlink:href="#speedometer2"></use>
                   </svg>
-                  Account  ▾
+                  Account ▾
                 </a>
                 <div class="collapse" id="collapseAcc">
                   <ul class="nav flex-column">
                     <li class="nav-item">
-                      <a class="nav-link" href="{% url 'perm' %}" style="margin-left: 35px;">Permission settings</a>
-                      <a class="nav-link" href="{% url 'logout'%}" style="margin-left: 35px;">Logout</a>
+                      <a
+                        class="nav-link"
+                        href="{% url 'perm' %}"
+                        style="margin-left: 35px"
+                        >Permission settings</a
+                      >
+                      <a
+                        class="nav-link"
+                        href="{% url 'logout'%}"
+                        style="margin-left: 35px"
+                        >Logout</a
+                      >
                     </li>
                   </ul>
                 </div>
               </li>
-          </ul>
-        </div>
+            </ul>
           </div>
+        </div>
 
         <div class="col-9">
-      <div class="row justify-content-center" style="padding-top: 7%">
-        <div class="col-sm-6 justify-content-center">
-          <h4>Create Project</h4>
-          <form
-            method="POST"
-            style="text-align: center"
-            id="create-project-form"
-          >
-            {% csrf_token %} {{ form.as_p }}
-            <label>
-              Dont use spaces when you write project name. Use "_" or "-",
-              please!
-            </label>
-            <div class="form-group" style="margin-top: 10px">
-              <select
-                class="form-control"
-                id="ad-accounts"
-                name="dropdown"
-                required
+          <div class="row justify-content-center" style="padding-top: 7%">
+            <div class="col-sm-6 justify-content-center">
+              <h4>Create Project</h4>
+              <form
+                method="POST"
+                style="text-align: center"
+                id="create-project-form"
               >
-                <option value="">Select Ad Account</option>
-                {% for i in accounts %}
-                <option value="{{ i.account_id }}">{{ i.name }}</option>
-                {% endfor %}
-              </select>
-              <div class="row">
-                <div class="col">
+                {% csrf_token %} {{ form.as_p }}
+                <label>
+                  Dont use spaces when you write project name. Use "_" or "-",
+                  please!
+                </label>
+                <div class="form-group" style="margin-top: 10px">
                   <select
                     class="form-control"
-                    id="currency"
-                    name="dropdown-ad-currency"
-                    style="margin-top: 20px"
+                    id="ad-accounts"
+                    name="dropdown"
                     required
                   >
-                    <option value="">Select Account Currency</option>
-                    {% for cur in currency %}
-                    <option value="{{ cur }}">{{ cur }}</option>
+                    <option value="">Select Ad Account</option>
+                    {% for i in accounts %}
+                    <option value="{{ i.account_id }}">{{ i.name }}</option>
                     {% endfor %}
                   </select>
-                </div>
-                <div class="col">
-                  <select
-                    class="form-control"
-                    id="ga-currency"
-                    name="dropdown-ga-currency"
-                    style="margin-top: 20px"
-                    required
-                  >
-                    <option value="">Select GA4 Currency</option>
-                    {% for cur in currency %}
-                    <option value="{{ cur }}">{{ cur }}</option>
-                    {% endfor %}
-                  </select>
-                </div>
-              </div>
-              <div class="row" style="margin-top: 20px">
-                <div class="col">
-                  <div class="form-group">
-                    <label for="date-start">Choose start date</label>
-                    <input
-                      type="date"
-                      class="form-control"
-                      id="date-start"
-                      onfocus="blockYesterdayDate()"
-                      name="date"
-                      required
-                    />
-                  </div>
-                </div>
-              </div>
-              <label style="margin-top: 20px"
-                >If you want to see FB ad accounts, you have to create Facebook
-                App in
-                <a
-                  href="https://developers.facebook.com/"
-                  onclick="event.preventDefault(); window.open(this.href, '_blank');"
-                  >Developer</a
-                >
-                and generate 3 access tokens: app_id, app_secret and
-                access_token. Then go to
-                <a href="{% url 'perm'%}"> Permission settings</a> and fill
-                fields with this data.
-              </label>
-            </div>
-            <button
-              class="btn btn-primary"
-              type="button"
-              value="Back"
-              style="margin-top: 20px; width: 100px; margin-right: 20px"
-              onclick="goBack()"
-            >
-              Back
-            </button>
-            <button
-              class="btn btn-primary"
-              type="submit"
-              value="Save"
-              id="sbm-btn"
-              style="margin-top: 20px; width: 100px"
-            >
-              Save
-              <!--              data-toggle="modal"-->
-              <!--              data-target="#loadingModal"-->
-            </button>
-            <div
-              class="modal fade"
-              id="loadingModal"
-              tabindex="-1"
-              role="dialog"
-              aria-labelledby="loadingModalLabel"
-              aria-hidden="true"
-            >
-              <div class="modal-dialog modal-dialog-centered" role="document">
-                <div
-                  class="modal-content"
-                  style="
-                    border: 2px solid black;
-                    border-radius: 10px;
-                    wight: 100px;
-                    height: 100px;
-                  "
-                >
-                  <div class="modal-body text-center">
-                    <div class="spinner-border text-dark" role="status">
-                      <span class="sr-only">Data collecting...</span>
+                  <div class="row">
+                    <div class="col">
+                      <select
+                        class="form-control"
+                        id="currency"
+                        name="dropdown-ad-currency"
+                        style="margin-top: 20px"
+                        required
+                      >
+                        <option value="">Select Account Currency</option>
+                        {% for cur in currency %}
+                        <option value="{{ cur }}">{{ cur }}</option>
+                        {% endfor %}
+                      </select>
                     </div>
-                    <p>Loading...</p>
+                    <div class="col">
+                      <select
+                        class="form-control"
+                        id="ga-currency"
+                        name="dropdown-ga-currency"
+                        style="margin-top: 20px"
+                        required
+                      >
+                        <option value="">Select GA4 Currency</option>
+                        {% for cur in currency %}
+                        <option value="{{ cur }}">{{ cur }}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row" style="margin-top: 20px">
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="date-start">Choose start date</label>
+                        <input
+                          type="date"
+                          class="form-control"
+                          id="date-start"
+                          onfocus="blockYesterdayDate()"
+                          name="date"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <label style="margin-top: 20px"
+                    >If you want to see FB ad accounts, you have to create
+                    Facebook App in
+                    <a
+                      href="https://developers.facebook.com/"
+                      onclick="event.preventDefault(); window.open(this.href, '_blank');"
+                      >Developer</a
+                    >
+                    and generate 3 access tokens: app_id, app_secret and
+                    access_token. Then go to
+                    <a href="{% url 'perm'%}"> Permission settings</a> and fill
+                    fields with this data.
+                  </label>
+                </div>
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  value="Back"
+                  style="margin-top: 20px; width: 100px; margin-right: 20px"
+                  onclick="goBack()"
+                >
+                  Back
+                </button>
+                <button
+                  class="btn btn-primary"
+                  type="submit"
+                  value="Save"
+                  id="sbm-btn"
+                  style="margin-top: 20px; width: 100px"
+                >
+                  Save
+                  <!--              data-toggle="modal"-->
+                  <!--              data-target="#loadingModal"-->
+                </button>
+                <div
+                  class="modal fade"
+                  id="loadingModal"
+                  tabindex="-1"
+                  role="dialog"
+                  aria-labelledby="loadingModalLabel"
+                  aria-hidden="true"
+                >
+                  <div
+                    class="modal-dialog modal-dialog-centered"
+                    role="document"
+                  >
+                    <div
+                      class="modal-content"
+                      style="
+                        border: 2px solid black;
+                        border-radius: 10px;
+                        wight: 100px;
+                        height: 100px;
+                      "
+                    >
+                      <div class="modal-body text-center">
+                        <div class="spinner-border text-dark" role="status">
+                          <span class="sr-only">Data collecting...</span>
+                        </div>
+                        <p>Loading...</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </form>
             </div>
-          </form>
+          </div>
         </div>
       </div>
-    </div>
-        </div>
     </div>
     <script>
       function goBack() {

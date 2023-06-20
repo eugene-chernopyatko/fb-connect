@@ -1,4 +1,6 @@
 import sqlite3
+from datetime import datetime
+
 import paramiko
 from facebook_business.adobjects.adaccount import AdAccount
 from facebook_business.adobjects.adsinsights import AdsInsights
@@ -11,6 +13,7 @@ load_dotenv()
 
 USER= os.getenv('pa_user')
 PASSWORD = os.getenv('pa_password')
+today = datetime.now()
 
 conn = sqlite3.connect('/home/neyokee/fb-connect/db.sqlite3')
 cursor = conn.cursor()
@@ -49,6 +52,9 @@ for data in user_id_list:
         except FacebookRequestError:
             cursor.execute(f'UPDATE datatransfer_project SET upload_status = "Failed" WHERE id = {proj[4]}')
             conn.commit()
+            cursor.execute(f'UPDATE datatransfer_project SET date_create = "{today.strftime("%Y-%m-%d")}" '
+                           f'WHERE id = {proj[4]}')
+            conn.commit()
             print(f'Error in account {proj[0]}')
         else:
             campaign_data = []
@@ -68,6 +74,9 @@ for data in user_id_list:
             sftp.close()
             ssh.close()
             cursor.execute(f'UPDATE datatransfer_project SET upload_status = "Success" WHERE id = {proj[4]}')
+            conn.commit()
+            cursor.execute(f'UPDATE datatransfer_project SET date_create = "{today.strftime("%Y-%m-%d")}" '
+                           f'WHERE id = {proj[4]}')
             conn.commit()
 
 # b = cursor.execute('SELECT project_name FROM datatransfer_project WHERE user_id = 1')

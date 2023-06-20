@@ -172,18 +172,72 @@
             <form method="post" style="margin-top: 20px;">
               {% csrf_token %}
               {{ form.as_p }}
-              <input class="btn btn-primary" type="submit" value="Save" id="sbm-btn" style="margin-top: 20px;">
+              <input class="btn btn-primary" type="button" value="Back" style="margin-top: 20px; width: 100px; margin-right: 20px;" onclick="goBack()">
+              <input class="btn btn-primary" type="submit" value="Save" id="sbm-btn" style="margin-top: 20px; width: 100px;">
             </form>
           </div>
         </div>
-        <input class="btn btn-primary" type="button" value="Back" style="margin-top: 20px;" onclick="goBack()">
       </div>
       <script>
         function goBack() {
           window.history.back();
         }
       </script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    </div>
+    </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-3"></div>
+      <div class="col-9 p-2">
+        <!-- Tabs navs -->
+<ul class="nav nav-pills mb-3" id="ex-with-icons" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="ex-with-icons-tab-1" data-mdb-toggle="tab" href="#ex-with-icons-tabs-1" role="tab"
+      aria-controls="ex-with-icons-tabs-1" aria-selected="true"><i class="fas fa-chart-line fa-fw me-2"></i>History</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="ex-with-icons-tab-2" data-mdb-toggle="tab" href="#ex-with-icons-tabs-2" role="tab"
+      aria-controls="ex-with-icons-tabs-2" aria-selected="false"><i class="fas fa-cogs fa-fw me-2"></i>Settings</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="ex-with-icons-content">
+  <div class="tab-pane fade show active" id="ex-with-icons-tabs-1" role="tabpanel" aria-labelledby="ex-with-icons-tab-1">
+<!--    <ul class="list-group list-group-light">-->
+<!--  <li class="list-group-item d-flex justify-content-between align-items-center">-->
+<!--    <div>-->
+<!--      <div class="fw-bold">John Doe</div>-->
+<!--      <div class="text-muted">john.doe@gmail.com</div>-->
+<!--    </div>-->
+<!--    <span class="badge rounded-pill badge-success">Active</span>-->
+<!--  </li>-->
+<!--  <li class="list-group-item d-flex justify-content-between align-items-center">-->
+<!--    <div>-->
+<!--      <div class="fw-bold">Alex Ray</div>-->
+<!--      <div class="text-muted">alex.ray@gmail.com</div>-->
+<!--    </div>-->
+<!--    <span class="badge rounded-pill badge-primary">Onboarding</span>-->
+<!--  </li>-->
+<!--  <li class="list-group-item d-flex justify-content-between align-items-center">-->
+<!--    <div>-->
+<!--      <div class="fw-bold">Kate Hunington</div>-->
+<!--      <div class="text-muted">kate.hunington@gmail.com</div>-->
+<!--    </div>-->
+<!--    <span class="badge rounded-pill badge-warning">Awaiting</span>-->
+<!--  </li>-->
+<!--</ul>-->
+  </div>
+  <div class="tab-pane fade" id="ex-with-icons-tabs-2" role="tabpanel" aria-labelledby="ex-with-icons-tab-2">
+<!--    Tab 2 content-->
+  </div>
+</div>
+<!-- Tabs content -->
+      </div>
+    </div>
+  </div>
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>
       <script
