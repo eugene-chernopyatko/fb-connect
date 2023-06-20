@@ -150,7 +150,12 @@
                   <p class="card-text">
                     GA4 currency: <strong>{{i.ga4_currency}}</strong>
                   </p>
-                  <p class="card-text"> Upload status: <strong>{{i.upload_status}}</strong></p>
+
+                  {% if i.upload_status == 'Success'%}
+                  <p class="card-text" style="color: #14A44D;"> Upload status: <strong>{{i.upload_status}}</strong></p>
+                  {%else%}
+                  <p class="card-text" style="color: #DC4C64;"> Upload status: <strong>{{i.upload_status}}</strong></p>
+                  {%endif%}
                   <a
                     href="{% url 'project-detail' i.pk %}"
                     class="btn btn-primary"
