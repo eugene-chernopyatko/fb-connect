@@ -32,6 +32,27 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+        <style>
+    /* Optional custom styles */
+    .sticky-block {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 341px;
+      height: 100vh;
+      padding: 20px;
+      background-color: #f8f9fa;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      z-index: 9999;
+    }
+
+    .sticky-block a {
+      color: #000;
+
+    }
+  </style>
     <script>
       function blockYesterdayDate() {
         var today = new Date();
@@ -52,8 +73,55 @@
   </head>
   <body>
     <div class="container-fluid">
-      <div class="row justify-content-center" style="padding-top: 10%">
-        <div class="col-sm-4 justify-content-center">
+      <div class="row">
+        <div class="col-3">
+        <div class="sticky-block">
+          <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+            <svg class="bi pe-none me-2" width="40" height="32">
+              <use xlink:href="{% url 'projects' %}"></use>
+            </svg>
+            <span class="fs-4">Fb Connect</span>
+          </a>
+          <hr />
+          <ul class="nav nav-pills flex-column mb-auto">
+              <li class="nav-item">
+                <a href="" class="nav-link link-body-emphasis active" data-bs-toggle="collapse" data-bs-target="#collapseDash" aria-expanded="false" aria-controls="collapseDash">
+                  <svg class="bi pe-none me-2" width="16" height="16">
+                    <use xlink:href="#speedometer2"></use>
+                  </svg>
+                  Dashboard  ▾
+                </a>
+                <div class="collapse" id="collapseDash">
+                  <ul class="nav flex-column">
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'create-project'%}" style="margin-left: 35px;">Create new project</a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            <li class="nav-item">
+                <a href="" class="nav-link link-body-emphasis active" data-bs-toggle="collapse" data-bs-target="#collapseAcc" aria-expanded="false" aria-controls="collapseAcc">
+                  <svg class="bi pe-none me-2" width="16" height="16">
+                    <use xlink:href="#speedometer2"></use>
+                  </svg>
+                  Account  ▾
+                </a>
+                <div class="collapse" id="collapseAcc">
+                  <ul class="nav flex-column">
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'perm' %}" style="margin-left: 35px;">Permission settings</a>
+                      <a class="nav-link" href="{% url 'logout'%}" style="margin-left: 35px;">Logout</a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+          </ul>
+        </div>
+          </div>
+
+        <div class="col-9">
+      <div class="row justify-content-center" style="padding-top: 7%">
+        <div class="col-sm-6 justify-content-center">
           <h4>Create Project</h4>
           <form
             method="POST"
@@ -186,6 +254,8 @@
           </form>
         </div>
       </div>
+    </div>
+        </div>
     </div>
     <script>
       function goBack() {

@@ -12,6 +12,7 @@ class Project(models.Model):
     ad_account_currency = models.CharField(blank=True, max_length=10)
     ga4_currency = models.CharField(blank=True, max_length=10)
     exchange_rate = models.FloatField(blank=True, default=1)
+    upload_status = models.CharField(max_length=50, default='Success')
 
     def __str__(self):
         return self.project_name

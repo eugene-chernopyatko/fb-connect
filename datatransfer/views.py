@@ -151,6 +151,7 @@ def create_project(request):
             with sftp.open(f'{project_name}_cost_data.csv', 'a') as remote_file:
                 for i in campaign_data:
                     remote_file.write(f'\n{",".join(i)}')
+            proj.upload_status = 'Success'
             sftp.close()
             ssh.close()
             proj.save()
