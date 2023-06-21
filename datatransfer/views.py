@@ -1,6 +1,6 @@
 import random
 from django.shortcuts import render, redirect
-from .models import Project
+from .models import Project, UploadHistory
 from facebook_business.adobjects.adsinsights import AdsInsights
 from facebook_business.api import FacebookAdsApi
 from facebook_business.adobjects.adaccount import AdAccount
@@ -33,7 +33,8 @@ def projects_main(request):
         return redirect('projects')
     if request.user.is_authenticated:
         projects = Project.objects.filter(user=request.user.pk)
-        return render(request, 'projects_page.html', {'projects': projects})
+        upload_history = UploadHistory.objects.order_by('-upload_date')
+        return render(request, 'projects_page.html', {'projects': projects, 'history': upload_history})
 
 
 def get_project(request, pk):
@@ -64,9 +65,10 @@ def get_project(request, pk):
             return render(request, 'project_detail.html', {'project': project, 'form': form})
 
     else:
+        upload_history = UploadHistory.objects.filter(project=pk).order_by('-upload_date')
         project = Project.objects.get(pk=pk)
         form = ProjectOpenKeyForm(initial={'ssh_key': project.ssh_key})
-        return render(request, 'project_detail.html', {'project': project, 'form': form})
+        return render(request, 'project_detail.html', {'project': project, 'form': form, 'history': upload_history})
 
 
 def get_account_list(request):
@@ -155,7 +157,10 @@ def create_project(request):
             sftp.close()
             ssh.close()
             proj.save()
-
+            upload_history = UploadHistory(upload_date=f'{today.strftime("%Y-%m-%d")}', upload_status='Success',
+                                           status_description='No problems detected',
+                                           project=Project.objects.get(id=proj.id))
+            upload_history.save()
             return redirect('projects')
         else:
             user_a_id = request.user.fb_app_id

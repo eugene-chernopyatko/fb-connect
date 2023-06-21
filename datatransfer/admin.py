@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Project
+from .models import Project, UploadHistory
 # Register your models here.
 
 
@@ -7,3 +7,6 @@ from .models import Project
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ['id', 'project_name', 'user']
     search_fields = ['project_name']
+
+
+admin.site.register(UploadHistory)

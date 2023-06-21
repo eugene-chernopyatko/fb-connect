@@ -205,29 +205,21 @@
 <!-- Tabs content -->
 <div class="tab-content" id="ex-with-icons-content">
   <div class="tab-pane fade show active" id="ex-with-icons-tabs-1" role="tabpanel" aria-labelledby="ex-with-icons-tab-1">
-<!--    <ul class="list-group list-group-light">-->
-<!--  <li class="list-group-item d-flex justify-content-between align-items-center">-->
-<!--    <div>-->
-<!--      <div class="fw-bold">John Doe</div>-->
-<!--      <div class="text-muted">john.doe@gmail.com</div>-->
-<!--    </div>-->
-<!--    <span class="badge rounded-pill badge-success">Active</span>-->
-<!--  </li>-->
-<!--  <li class="list-group-item d-flex justify-content-between align-items-center">-->
-<!--    <div>-->
-<!--      <div class="fw-bold">Alex Ray</div>-->
-<!--      <div class="text-muted">alex.ray@gmail.com</div>-->
-<!--    </div>-->
-<!--    <span class="badge rounded-pill badge-primary">Onboarding</span>-->
-<!--  </li>-->
-<!--  <li class="list-group-item d-flex justify-content-between align-items-center">-->
-<!--    <div>-->
-<!--      <div class="fw-bold">Kate Hunington</div>-->
-<!--      <div class="text-muted">kate.hunington@gmail.com</div>-->
-<!--    </div>-->
-<!--    <span class="badge rounded-pill badge-warning">Awaiting</span>-->
-<!--  </li>-->
-<!--</ul>-->
+    <ul class="list-group list-group-light">
+      {% for his in history %}
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    <div>
+      <div class="fw-bold">{{his.upload_date}}</div>
+      <div class="text-muted">{{ his.status_description }}</div>
+    </div>
+    {% if his.upload_status == 'Success' %}
+    <span class="badge rounded-pill badge-success"> {{ his.upload_status }}</span>
+    {%else%}
+    <span class="badge rounded-pill badge-danger"> {{ his.upload_status }}</span>
+    {% endif %}
+  </li>
+      {% endfor %}
+</ul>
   </div>
   <div class="tab-pane fade" id="ex-with-icons-tabs-2" role="tabpanel" aria-labelledby="ex-with-icons-tab-2">
 <!--    Tab 2 content-->

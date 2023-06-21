@@ -56,6 +56,15 @@ for data in user_id_list:
                            f'WHERE id = {proj[4]}')
             conn.commit()
             print(f'Error in account {proj[0]}')
+            date_db = cursor.execute(f'SELECT upload_date FROM datatransfer_uploadhistory '
+                                        f'WHERE project_id = {proj[4]}')
+            date_db_fetch = date_db.fetchall()
+            date_check = [i[0] for i in date_db_fetch]
+            if today.strftime("%Y-%m-%d") not in date_check:
+                cursor.execute(f'INSERT INTO datatransfer_uploadhistory (upload_date, project_id, upload_status, '
+                               f'status_description) VALUES ("{today.strftime("%Y-%m-%d")}", {proj[4]}, "Failed",'
+                               f'"Issues with Facebook Credentials")')
+                conn.commit()
         else:
             campaign_data = []
 
@@ -78,6 +87,15 @@ for data in user_id_list:
             cursor.execute(f'UPDATE datatransfer_project SET date_create = "{today.strftime("%Y-%m-%d")}" '
                            f'WHERE id = {proj[4]}')
             conn.commit()
+            date_db = cursor.execute(f'SELECT upload_date FROM datatransfer_uploadhistory '
+                                        f'WHERE project_id = {proj[4]}')
+            date_db_fetch = date_db.fetchall()
+            date_check = [i[0] for i in date_db_fetch]
+            if today.strftime("%Y-%m-%d") not in date_check:
+                cursor.execute(f'INSERT INTO datatransfer_uploadhistory (upload_date, project_id, upload_status, '
+                               f'status_description) VALUES ("{today.strftime("%Y-%m-%d")}", {proj[4]}, "Success",'
+                               f'"No problems detected")')
+                conn.commit()
 
 # b = cursor.execute('SELECT project_name FROM datatransfer_project WHERE user_id = 1')
 # pro = b.fetchall()

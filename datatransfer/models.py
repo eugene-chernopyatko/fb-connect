@@ -16,3 +16,13 @@ class Project(models.Model):
 
     def __str__(self):
         return self.project_name
+
+
+class UploadHistory(models.Model):
+    upload_date = models.DateField()
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='project')
+    upload_status = models.CharField(max_length=50, default='Success')
+    status_description = models.CharField(max_length=150)
+
+    # def __str__(self):
+    #     return self.pk

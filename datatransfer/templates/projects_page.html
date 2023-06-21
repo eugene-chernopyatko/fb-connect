@@ -233,23 +233,10 @@
                         >
                           Close
                         </button>
-                        <button
-                          class="btn btn-outline-danger ripple-surface-dark"
-                          id="delete-btn"
-                          onclick="deleteItem()"
-                        >
-                          <a
-                            href=""
+                          <a class="btn btn-outline-danger ripple-surface-dark"
                             id="delete-link"
-                            style="
-                              text-decoration: none;
-                              color: inherit;
-                              cursor: inherit;
-                              width: 103.38px;
-                            "
-                            >Delete</a
-                          >
-                        </button>
+                              onclick="deleteItem()"
+                            >Delete</a>
                       </div>
                     </div>
                   </div>
@@ -286,7 +273,7 @@
     </script>
     <script>
       function deleteItem() {
-        var button = document.getElementById("delete-btn");
+        var button = document.getElementById("delete-link");
         button.disabled = true;
         button.innerHTML =
           '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Deleting...';
