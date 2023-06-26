@@ -1,0 +1,21 @@
+{% include 'index.html' %}
+{% load static %}
+{% block content %}
+    <div class="container-fluid">
+      <div class="row justify-content-center" style="padding-top: 20%">
+        <div class="col-sm-4 justify-content-center">
+          <h4>FB Connect</h4>
+          <form method="POST" style="text-align: center" id="login-form">
+            {% csrf_token %} {{ form.as_p }}
+            <input
+              class="btn btn-primary"
+              type="submit"
+              value="Sign In"
+              id="sbm-btn"
+            />
+            <p>Not a member? <a href="registration/">Join now</a></p>
+          </form>
+        </div>
+      </div>
+    </div>
+{% endblock content %}
