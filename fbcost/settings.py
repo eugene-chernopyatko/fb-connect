@@ -26,7 +26,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 SECRET_KEY = os.getenv('django_security_key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['neyokee.pythonanywhere.com', '127.0.0.1']
 AUTH_USER_MODEL = 'authentication.CustomUser'
