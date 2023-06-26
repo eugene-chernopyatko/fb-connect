@@ -34,10 +34,10 @@ def user_login(request):
                 return redirect('projects')
             else:
                 form.add_error(None, 'Invalid username or password.')
-                return render(request, 'index.html', {'form': form, 'error': form.errors})
+                return render(request, 'main_page.html', {'form': form, 'error': form.errors})
     else:
         form = UserLoginForm()
-        return render(request, 'index.html', {'form': form})
+        return render(request, 'main_page.html', {'form': form})
 
 
 def user_logout(request):

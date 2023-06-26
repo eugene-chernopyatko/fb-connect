@@ -71,18 +71,18 @@ def get_project(request, pk):
         return render(request, 'project_detail.html', {'project': project, 'form': form, 'history': upload_history})
 
 
-def get_account_list(request):
-    if request.user.is_authenticated:
-        user_a_id = request.user.fb_app_id
-        user_a_sec = request.user.fb_account_secret
-        user_a_token = request.user.fb_access_token
-
-        FacebookAdsApi.init(user_a_id, user_a_sec, user_a_token)
-
-        me = User(fbid='me')
-        ad_accounts = me.get_ad_accounts(fields=['name', 'account_id'])
-
-        return render(request, 'index.html', {'accounts': ad_accounts})
+# def get_account_list(request):
+#     if request.user.is_authenticated:
+#         user_a_id = request.user.fb_app_id
+#         user_a_sec = request.user.fb_account_secret
+#         user_a_token = request.user.fb_access_token
+#
+#         FacebookAdsApi.init(user_a_id, user_a_sec, user_a_token)
+#
+#         me = User(fbid='me')
+#         ad_accounts = me.get_ad_accounts(fields=['name', 'account_id'])
+#
+#         return render(request, 'index.html', {'accounts': ad_accounts})
 
 
 def create_project(request):
