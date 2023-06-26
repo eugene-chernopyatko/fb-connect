@@ -4,49 +4,81 @@
 
 {% block content %}
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-3">
-        <div class="sticky-block">
-          <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-            <svg class="bi pe-none me-2" width="40" height="32">
-              <use xlink:href="{% url 'projects' %}"></use>
-            </svg>
-            <span class="fs-4">Fb Connect</span>
-          </a>
-          <hr />
-          <ul class="nav nav-pills flex-column mb-auto">
+      <div class="row">
+        <div class="col-3 p-2">
+          <div class="sticky-block">
+            <a
+              href="/"
+              class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
+            >
+              <svg class="bi pe-none me-2 mt-3" width="40" height="32">
+                <use xlink:href="{% url 'projects' %}"></use>
+              </svg>
+              <span class="fs-4" style="color: #3b71ca">Fb Connect</span>
+            </a>
+            <hr />
+            <ul class="nav nav-pills flex-column mb-auto">
               <li class="nav-item">
-                <a href="" class="nav-link link-body-emphasis active" data-bs-toggle="collapse" data-bs-target="#collapseDash" aria-expanded="false" aria-controls="collapseDash">
+                <a
+                  href=""
+                  class="nav-link link-body-emphasis active"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseDash"
+                  aria-expanded="false"
+                  aria-controls="collapseDash"
+                >
                   <svg class="bi pe-none me-2" width="16" height="16">
                     <use xlink:href="#speedometer2"></use>
                   </svg>
-                  Dashboard  ▾
+                  Dashboard ▾
                 </a>
                 <div class="collapse" id="collapseDash">
                   <ul class="nav flex-column">
                     <li class="nav-item">
-                      <a class="nav-link" href="{% url 'create-project'%}" style="margin-left: 35px;">Create new project</a>
+                      <a
+                        class="nav-link"
+                        href="{% url 'create-project'%}"
+                        style="margin-left: 35px"
+                        >Create new project</a
+                      >
                     </li>
                   </ul>
                 </div>
               </li>
-            <li class="nav-item">
-                <a href="" class="nav-link link-body-emphasis active" data-bs-toggle="collapse" data-bs-target="#collapseAcc" aria-expanded="false" aria-controls="collapseAcc">
+              <li class="nav-item">
+                <a
+                  href=""
+                  class="nav-link link-body-emphasis active"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseAcc"
+                  aria-expanded="false"
+                  aria-controls="collapseAcc"
+                >
                   <svg class="bi pe-none me-2" width="16" height="16">
                     <use xlink:href="#speedometer2"></use>
                   </svg>
-                  Account  ▾
+                  Account ▾
                 </a>
                 <div class="collapse" id="collapseAcc">
                   <ul class="nav flex-column">
                     <li class="nav-item">
-                      <a class="nav-link" href="{% url 'perm' %}" style="margin-left: 35px;">Permission settings</a>
-                      <a class="nav-link" href="{% url 'logout'%}" style="margin-left: 35px;">Logout</a>
+                      <a
+                        class="nav-link"
+                        href="{% url 'perm' %}"
+                        style="margin-left: 35px"
+                        >Permission settings</a
+                      >
+                      <a
+                        class="nav-link"
+                        href="{% url 'logout'%}"
+                        style="margin-left: 35px"
+                        >Logout</a
+                      >
                     </li>
                   </ul>
                 </div>
               </li>
-          </ul>
+            </ul>
 <!--        <div class="sticky-block">-->
 <!--          <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">-->
 <!--            <svg class="bi pe-none me-2" width="40" height="32">-->
@@ -180,7 +212,7 @@
 </ul>
   </div>
   <div class="tab-pane fade" id="ex-with-icons-tabs-2" role="tabpanel" aria-labelledby="ex-with-icons-tab-2">
-<!--    Tab 2 content-->
+
   </div>
 </div>
 <!-- Tabs content -->

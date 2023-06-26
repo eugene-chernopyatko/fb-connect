@@ -200,14 +200,14 @@ def delete_project(request, pk):
     ssh.connect(hostname='ssh.pythonanywhere.com', username=USER, password=PASSWORD)
     sftp = ssh.open_sftp()
     remote_file_path = '/home/neyokee/.ssh/authorized_keys'
-    if proj.ssh_key:
-        with sftp.open(remote_file_path) as file:
-            file_content = file.read()
-            ssh_list = file_content.decode().split('\n')
-
-        new_ssh = [key for key in ssh_list if key != proj.ssh_key]
-        with sftp.open(remote_file_path, 'w') as file:
-            file.write('\n'.join(new_ssh).encode())
+    # if proj.ssh_key:
+    #     with sftp.open(remote_file_path) as file:
+    #         file_content = file.read()
+    #         ssh_list = file_content.decode().split('\n')
+    #
+    #     new_ssh = [key for key in ssh_list if key != proj.ssh_key]
+    #     with sftp.open(remote_file_path, 'w') as file:
+    #         file.write('\n'.join(new_ssh).encode())
 
     sftp.remove(f'/home/neyokee/fb_cost_data/{proj.filename_to_transfer}')
     sftp.close()
