@@ -51,11 +51,12 @@ def get_project(request, pk):
             remote_file_path = '/home/neyokee/.ssh/authorized_keys'
             with sftp.open(remote_file_path) as file:
                 file_content = file.read()
+                ssh_list = file_content.decode().split('\n')
 
-            new_file_content = file_content.decode() + f'\n{request.POST["ssh_key"]}'
-
-            with sftp.open(remote_file_path, 'w') as file:
-                file.write(new_file_content.encode())
+            if request.POST["ssh_key"] not in ssh_list:
+                new_file_content = file_content.decode() + f'\n{request.POST["ssh_key"]}'
+                with sftp.open(remote_file_path, 'w') as file:
+                    file.write(new_file_content.encode())
 
             sftp.close()
             ssh.close()
@@ -94,7 +95,7 @@ def create_project(request):
         ad_currency = request.POST['dropdown-ad-currency']
         ga_currency = request.POST['dropdown-ga-currency']
         start_date = request.POST['date']
-        print(start_date)
+        # print(start_date)
         if form.is_valid():
             project_name = request.POST['project_name']
             exists = Project.objects.filter(project_name=project_name).exists()
