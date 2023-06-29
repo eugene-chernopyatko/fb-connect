@@ -25,6 +25,7 @@ two_day_ago = today - timedelta(days=2)
 yesterday = today - timedelta(days=1)
 current_time = datetime.now()
 hour = current_time.hour
+print(hour)
 UPLOAD_TIME = 12
 
 
