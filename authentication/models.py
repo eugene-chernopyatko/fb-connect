@@ -5,6 +5,13 @@ from django.contrib.auth.models import PermissionsMixin
 from django.core.validators import MinLengthValidator
 from django.db import models
 
+BILLING_PLAN = (
+    ('Start', 'Start'),
+    ('Standard', 'Standard'),
+    ('Standard+', 'Standard+'),
+    ('Unlimited', 'Unlimited')
+)
+
 
 class CustomUserManager(BaseUserManager):
     """
@@ -44,6 +51,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     fb_app_id = models.CharField(max_length=200, blank=True)
     fb_account_secret = models.CharField(max_length=200, blank=True)
     fb_access_token = models.CharField(max_length=200, blank=True)
+    project_count = models.IntegerField(default=0)
+    billing_plan = models.CharField(max_length=50, choices=BILLING_PLAN, default='Start')
 
     USERNAME_FIELD = 'email'
     objects = CustomUserManager()

@@ -25,13 +25,24 @@ two_day_ago = today - timedelta(days=2)
 yesterday = today - timedelta(days=1)
 current_time = datetime.now()
 hour = current_time.hour
-print(hour)
 UPLOAD_TIME = 12
+ACCOUNT_LIMIT = {
+    'Start': 1,
+    'Standard': 5,
+    'Standard+': 10,
+    'Unlimited': 1000
+}
 
 
 def projects_main(request):
     if not request.user.is_authenticated:
         return redirect('projects')
+    print(request.user.project_count)
+    if int(request.user.project_count) >= ACCOUNT_LIMIT[request.user.billing_plan]:
+        projects = Project.objects.filter(user=request.user.pk)
+        upload_history = UploadHistory.objects.order_by('-upload_date')
+        return render(request, 'projects_page.html', {'projects': projects,
+                                                      'history': upload_history, 'block_creating': 1})
     if request.user.is_authenticated:
         projects = Project.objects.filter(user=request.user.pk)
         upload_history = UploadHistory.objects.order_by('-upload_date')
@@ -89,6 +100,8 @@ def get_project(request, pk):
 
 def create_project(request):
     if not request.user.is_authenticated:
+        return redirect('projects')
+    if int(request.user.project_count) >= ACCOUNT_LIMIT[request.user.billing_plan]:
         return redirect('projects')
     if request.method == 'POST':
         account_id = request.POST['dropdown']
@@ -156,6 +169,8 @@ def create_project(request):
                 for i in campaign_data:
                     remote_file.write(f'\n{",".join(i)}')
             proj.upload_status = 'Success'
+            request.user.project_count = request.user.project_count + 1
+            request.user.save()
             sftp.close()
             ssh.close()
             proj.save()
@@ -214,4 +229,6 @@ def delete_project(request, pk):
     sftp.remove(f'/home/neyokee/fb_cost_data/{proj.filename_to_transfer}')
     sftp.close()
     proj.delete()
+    request.user.project_count = request.user.project_count - 1
+    request.user.save()
     return redirect('projects')

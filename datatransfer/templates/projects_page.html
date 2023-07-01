@@ -34,12 +34,56 @@
                 <div class="collapse" id="collapseDash">
                   <ul class="nav flex-column">
                     <li class="nav-item">
+                      {% if block_creating %}
+                      <a
+                        href="#"
+                        class="nav-link"
+                        style="margin-left: 35px"
+                        data-bs-toggle="modal"
+                        data-bs-target="#ModalError"
+                        >Create new project</a>
+                                            <div
+                        class="modal fade"
+                        id="ModalError"
+                        tabindex="-1"
+                        aria-labelledby="exampleModalLabel1"
+                        aria-hidden="true"
+                      >
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="exampleModalLabel1">
+                                Project creating error
+                              </h1>
+                              <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                              ></button>
+                            </div>
+                            <div class="modal-body">
+                              You can't create a new project because you've exceeded the limit
+                            </div>
+                            <div class="modal-footer">
+                              <button
+                                type="button"
+                                class="btn btn-outline-secondary ripple-surface-dark"
+                                data-bs-dismiss="modal"
+                              >
+                                Close
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      {% else %}
                       <a
                         class="nav-link"
                         href="{% url 'create-project'%}"
                         style="margin-left: 35px"
-                        >Create new project</a
-                      >
+                        >Create new project</a>
+                      {% endif %}
                     </li>
                   </ul>
                 </div>
