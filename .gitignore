@@ -162,4 +162,7 @@ cython_debug/
 *.sqlite3
 settings.py
 fbcost/settings.py
-
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py
+**/**/migrations

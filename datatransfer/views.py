@@ -37,7 +37,6 @@ ACCOUNT_LIMIT = {
 def projects_main(request):
     if not request.user.is_authenticated:
         return redirect('projects')
-    print(request.user.project_count)
     if int(request.user.project_count) >= ACCOUNT_LIMIT[request.user.billing_plan]:
         projects = Project.objects.filter(user=request.user.pk)
         upload_history = UploadHistory.objects.order_by('-upload_date')
@@ -206,7 +205,7 @@ def create_project(request):
             print('#################################')
         finally:
             # form = CreateProjectForm()
-            print(hour)
+            print(f'Current hour now: {hour}')
             return render(request, 'create_project.html', {'form': form, 'accounts': ad_accounts, 'currency': CURRENCY})
 
 

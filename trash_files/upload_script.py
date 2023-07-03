@@ -1,4 +1,5 @@
 import sqlite3
+import time
 from datetime import datetime
 
 import paramiko
@@ -21,81 +22,91 @@ cursor = conn.cursor()
 user_id_cursor = cursor.execute('SELECT id,fb_app_id,fb_account_secret,fb_access_token FROM authentication_customuser')
 user_id_list = user_id_cursor.fetchall()
 
-for data in user_id_list:
-    user_a_id = data[1]
-    user_a_sec = data[2]
-    user_a_token = data[3]
 
-    FacebookAdsApi.init(user_a_id, user_a_sec, user_a_token)
+def all_data():
+    for data in user_id_list:
+        user_a_id = data[1]
+        user_a_sec = data[2]
+        user_a_token = data[3]
 
-    project_cursor = cursor.execute(f'SELECT account_id,filename_to_transfer,exchange_rate, upload_status, id'
-                                    f' FROM datatransfer_project WHERE user_id = {data[0]}')
-    project_data_list = project_cursor.fetchall()
-    # print(project_data_list)
-    for proj in project_data_list:
-        print(proj)
-        try:
-            account = AdAccount(proj[0])
-            insights = account.get_insights(fields=[
-                # AdsInsights.Field.campaign_id,
-                AdsInsights.Field.campaign_name,
-                AdsInsights.Field.adset_id,
-                AdsInsights.Field.adset_name,
-                AdsInsights.Field.spend,
-                AdsInsights.Field.impressions,
-                AdsInsights.Field.clicks,
-            ], params={
-                'level': 'adset',
-                'time_increment': 1,
-                'date_preset': 'yesterday',
-            })
-        except FacebookRequestError:
-            cursor.execute(f'UPDATE datatransfer_project SET upload_status = "Failed" WHERE id = {proj[4]}')
-            conn.commit()
-            cursor.execute(f'UPDATE datatransfer_project SET date_create = "{today.strftime("%Y-%m-%d")}" '
-                           f'WHERE id = {proj[4]}')
-            conn.commit()
-            print(f'Error in account {proj[0]}')
-            date_db = cursor.execute(f'SELECT upload_date FROM datatransfer_uploadhistory '
-                                        f'WHERE project_id = {proj[4]}')
-            date_db_fetch = date_db.fetchall()
-            date_check = [i[0] for i in date_db_fetch]
-            if today.strftime("%Y-%m-%d") not in date_check:
-                cursor.execute(f'INSERT INTO datatransfer_uploadhistory (upload_date, project_id, upload_status, '
-                               f'status_description) VALUES ("{today.strftime("%Y-%m-%d")}", {proj[4]}, "Failed",'
-                               f'"Issues with Facebook Credentials")')
+        FacebookAdsApi.init(user_a_id, user_a_sec, user_a_token)
+
+        project_cursor = cursor.execute(f'SELECT account_id,filename_to_transfer,exchange_rate, upload_status, id'
+                                        f' FROM datatransfer_project WHERE user_id = {data[0]}')
+        project_data_list = project_cursor.fetchall()
+        # print(project_data_list)
+        for proj in project_data_list:
+            print(proj)
+            try:
+                account = AdAccount(proj[0])
+                insights = account.get_insights(fields=[
+                    # AdsInsights.Field.campaign_id,
+                    AdsInsights.Field.campaign_name,
+                    AdsInsights.Field.adset_id,
+                    AdsInsights.Field.adset_name,
+                    AdsInsights.Field.spend,
+                    AdsInsights.Field.impressions,
+                    AdsInsights.Field.clicks,
+                ], params={
+                    'level': 'adset',
+                    'time_increment': 1,
+                    'date_preset': 'yesterday',
+                })
+                time.sleep(30)
+            except FacebookRequestError:
+                cursor.execute(f'UPDATE datatransfer_project SET upload_status = "Failed" WHERE id = {proj[4]}')
                 conn.commit()
-        else:
-            campaign_data = []
-
-            for i in insights:
-                campaign_data.append([i['adset_id'], i['adset_name'], 'facebook', i['campaign_name'], i['date_stop'],
-                                      i['impressions'], i['clicks'], format(float(i['spend']) * proj[2], '.2f')])
-
-            ssh = paramiko.SSHClient()
-            ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-            ssh.connect(hostname='ssh.pythonanywhere.com', username=USER, password=PASSWORD)
-            sftp = ssh.open_sftp()
-            sftp.chdir('/home/neyokee/fb_cost_data/')
-            with sftp.open(f'{proj[1]}', 'a') as remote_file:
-                for i in campaign_data:
-                    remote_file.write(f'\n{",".join(i)}')
-            sftp.close()
-            ssh.close()
-            cursor.execute(f'UPDATE datatransfer_project SET upload_status = "Success" WHERE id = {proj[4]}')
-            conn.commit()
-            cursor.execute(f'UPDATE datatransfer_project SET date_create = "{today.strftime("%Y-%m-%d")}" '
-                           f'WHERE id = {proj[4]}')
-            conn.commit()
-            date_db = cursor.execute(f'SELECT upload_date FROM datatransfer_uploadhistory '
-                                        f'WHERE project_id = {proj[4]}')
-            date_db_fetch = date_db.fetchall()
-            date_check = [i[0] for i in date_db_fetch]
-            if today.strftime("%Y-%m-%d") not in date_check:
-                cursor.execute(f'INSERT INTO datatransfer_uploadhistory (upload_date, project_id, upload_status, '
-                               f'status_description) VALUES ("{today.strftime("%Y-%m-%d")}", {proj[4]}, "Success",'
-                               f'"No problems detected")')
+                cursor.execute(f'UPDATE datatransfer_project SET date_create = "{today.strftime("%Y-%m-%d")}" '
+                               f'WHERE id = {proj[4]}')
                 conn.commit()
+                print(f'Error in account {proj[0]}')
+                date_db = cursor.execute(f'SELECT upload_date FROM datatransfer_uploadhistory '
+                                            f'WHERE project_id = {proj[4]}')
+                date_db_fetch = date_db.fetchall()
+                date_check = [i[0] for i in date_db_fetch]
+                if today.strftime("%Y-%m-%d") not in date_check:
+                    cursor.execute(f'INSERT INTO datatransfer_uploadhistory (upload_date, project_id, upload_status, '
+                                   f'status_description) VALUES ("{today.strftime("%Y-%m-%d")}", {proj[4]}, "Failed",'
+                                   f'"Issues with Facebook Credentials")')
+                    conn.commit()
+            else:
+                campaign_data = []
+
+                for i in insights:
+                    campaign_data.append([i['adset_id'], i['adset_name'], 'facebook', i['campaign_name'], i['date_stop'],
+                                          i['impressions'], i['clicks'], format(float(i['spend']) * proj[2], '.2f')])
+
+                ssh = paramiko.SSHClient()
+                ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+                ssh.connect(hostname='ssh.pythonanywhere.com', username=USER, password=PASSWORD)
+                sftp = ssh.open_sftp()
+                sftp.chdir('/home/neyokee/fb_cost_data/')
+                with sftp.open(f'{proj[1]}', 'a') as remote_file:
+                    for i in campaign_data:
+                        remote_file.write(f'\n{",".join(i)}')
+                sftp.close()
+                ssh.close()
+                cursor.execute(f'UPDATE datatransfer_project SET upload_status = "Success" WHERE id = {proj[4]}')
+                conn.commit()
+                cursor.execute(f'UPDATE datatransfer_project SET date_create = "{today.strftime("%Y-%m-%d")}" '
+                               f'WHERE id = {proj[4]}')
+                conn.commit()
+                date_db = cursor.execute(f'SELECT upload_date FROM datatransfer_uploadhistory '
+                                            f'WHERE project_id = {proj[4]}')
+                date_db_fetch = date_db.fetchall()
+                date_check = [i[0] for i in date_db_fetch]
+                if today.strftime("%Y-%m-%d") not in date_check:
+                    cursor.execute(f'INSERT INTO datatransfer_uploadhistory (upload_date, project_id, upload_status, '
+                                   f'status_description) VALUES ("{today.strftime("%Y-%m-%d")}", {proj[4]}, "Success",'
+                                   f'"No problems detected")')
+                    conn.commit()
+
+
+def current_account(account_id):
+    pass
+
+
+all_data()
 
 # b = cursor.execute('SELECT project_name FROM datatransfer_project WHERE user_id = 1')
 # pro = b.fetchall()
