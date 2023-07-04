@@ -20,11 +20,6 @@ USER= os.getenv('pa_user')
 PASSWORD = os.getenv('pa_password')
 
 CURRENCY = ['uah', 'usd', 'eur', 'gbp']
-today = datetime.now()
-two_day_ago = today - timedelta(days=2)
-yesterday = today - timedelta(days=1)
-current_time = datetime.now()
-hour = current_time.hour
 UPLOAD_TIME = 12
 ACCOUNT_LIMIT = {
     'Start': 1,
@@ -130,6 +125,12 @@ def create_project(request):
 
             FacebookAdsApi.init(user_a_id, user_a_sec, user_a_token)
 
+            today = datetime.now()
+            two_day_ago = today - timedelta(days=2)
+            yesterday = today - timedelta(days=1)
+            current_time = datetime.now()
+            hour = current_time.hour
+
             account = AdAccount(f'act_{account_id}')
             insights = account.get_insights(fields=[
                 # AdsInsights.Field.campaign_id,
@@ -205,7 +206,7 @@ def create_project(request):
             print('#################################')
         finally:
             # form = CreateProjectForm()
-            print(f'Current hour now: {hour}')
+            print(f'Current hour now: {datetime.now().hour}')
             return render(request, 'create_project.html', {'form': form, 'accounts': ad_accounts, 'currency': CURRENCY})
 
 
