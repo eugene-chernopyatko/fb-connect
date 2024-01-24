@@ -54,7 +54,7 @@ def get_project(request, pk):
             ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
             ssh.connect(hostname='ssh.pythonanywhere.com', username=USER, password=PASSWORD)
             sftp = ssh.open_sftp()
-            remote_file_path = '/home/neyokee/.ssh/authorized_keys'
+            remote_file_path = f'/home/{USER}/.ssh/authorized_keys'
             with sftp.open(remote_file_path) as file:
                 file_content = file.read()
                 ssh_list = file_content.decode().split('\n')
@@ -158,7 +158,7 @@ def create_project(request):
             ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
             ssh.connect(hostname='ssh.pythonanywhere.com', username=USER, password=PASSWORD)
             sftp = ssh.open_sftp()
-            sftp.chdir('/home/neyokee/fb_cost_data/')
+            sftp.chdir(f'/home/{USER}/fb_cost_data/')
             keys = ['campaign_id_column', 'campaign_name', 'campaign_source_column',
                     'campaign_medium_column', 'date_column', 'daily_impressions_column',
                     'daily_clicks_column', 'daily_cost_column']
@@ -216,7 +216,7 @@ def delete_project(request, pk):
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     ssh.connect(hostname='ssh.pythonanywhere.com', username=USER, password=PASSWORD)
     sftp = ssh.open_sftp()
-    remote_file_path = '/home/neyokee/.ssh/authorized_keys'
+    remote_file_path = f'/home/{USER}/.ssh/authorized_keys'
     # if proj.ssh_key:
     #     with sftp.open(remote_file_path) as file:
     #         file_content = file.read()
@@ -226,7 +226,7 @@ def delete_project(request, pk):
     #     with sftp.open(remote_file_path, 'w') as file:
     #         file.write('\n'.join(new_ssh).encode())
 
-    sftp.remove(f'/home/neyokee/fb_cost_data/{proj.filename_to_transfer}')
+    sftp.remove(f'/home/{USER}/fb_cost_data/{proj.filename_to_transfer}')
     sftp.close()
     proj.delete()
     request.user.project_count = request.user.project_count - 1
